@@ -25,7 +25,7 @@ public class User implements UserDetails {
     @Max(value = 127, message = "Age should be < 128")
     private byte age;
 
-    @Pattern(regexp = "([A-z0-9_.-]{1,})@([A-z0-9_.-]{1,}).([A-z]{2,8})", message = "Enter correct email")
+    @Pattern(regexp = "([A-z0-9_.-]+)@([A-z0-9_.-]+).([A-z]{2,8})", message = "Enter correct email")
     private String email;
 
     @NotEmpty(message = "Username cannot be empty")
