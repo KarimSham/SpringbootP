@@ -1,5 +1,6 @@
 package ru.freeomsk.springboot.controller;
 
+import org.springframework.validation.FieldError;
 import ru.freeomsk.springboot.model.User;
 import ru.freeomsk.springboot.service.RoleService;
 import ru.freeomsk.springboot.service.UserService;
@@ -41,6 +42,11 @@ public class AdminController {
                              @ModelAttribute("user") @Valid User user,
                              BindingResult bindingResult) {
         if (bindingResult.hasErrors()) {
+            return "create";
+        }
+        if (userService.findByUsername(user.getUsername()) != null) {
+            bindingResult.addError(new FieldError("username", "username",
+                    String.format("User with name \"%s\" is already exist!", user.getUsername())));
             return "create";
         }
         user.setRoles(roleService.findByIdRoles(roles));
